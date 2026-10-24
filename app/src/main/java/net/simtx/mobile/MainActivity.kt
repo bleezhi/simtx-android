@@ -71,7 +71,7 @@ private fun SimTxApp() {
             when (screen) {
                 Screen.HOME -> HomeScreen(onNavigate = { screen = it })
                 Screen.STATIONS -> EmptyScreen("Stations", "Your account's SimTX stations will appear here after sign-in.", Icons.Default.CellTower)
-                Screen.RECEIVER -> ReceiverScreen(frequency, { frequency = it }, squelch, { squelch = it })
+                Screen.RECEIVER -> RtlReceiverScreen(frequency, { frequency = it }, squelch, { squelch = it })
                 Screen.TRANSMIT -> TransmitScreen()
                 Screen.ACCOUNT -> AccountScreen(url, { url = it }, username, { username = it }, password, { password = it }, { notice = SimTxConnection(url, username, password).validate() ?: "Fields look valid. No network request was made; the verified SimTX sign-in adapter is not implemented yet." })
             }
