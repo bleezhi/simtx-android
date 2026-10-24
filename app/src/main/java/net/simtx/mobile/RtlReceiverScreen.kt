@@ -13,6 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
@@ -41,9 +42,9 @@ fun RtlReceiverScreen(frequency: String, onFrequency: (String) -> Unit, squelch:
                     Text(if (connected) "CONNECTED" else "NO SIGNAL", fontSize = 10.sp)
                 }
                 Canvas(Modifier.fillMaxSize().padding(top = 10.dp)) {
-                    for (i in 0..32) { val x = size.width * i / 32f; drawLine(MaterialTheme.colorScheme.secondary.copy(alpha = .2f), Offset(x, 0f), Offset(x, size.height), 1f) }
+                    for (i in 0..32) { val x = size.width * i / 32f; drawLine(Color(0x338FA1B8), Offset(x, 0f), Offset(x, size.height), 1f) }
                     val mid = size.height * .7f
-                    drawLine(MaterialTheme.colorScheme.primary.copy(alpha = .6f), Offset(0f, mid), Offset(size.width, mid), 1.5f, cap = StrokeCap.Round)
+                    drawLine(Color(0xFF5DF2C1), Offset(0f, mid), Offset(size.width, mid), 1.5f, cap = StrokeCap.Round)
                 }
             }
         }
