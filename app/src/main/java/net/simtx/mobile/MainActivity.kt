@@ -1,6 +1,9 @@
 package net.simtx.mobile
 
 import android.os.Bundle
+import android.content.Intent
+import android.net.Uri
+import androidx.compose.ui.platform.LocalContext
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.Canvas
@@ -174,22 +177,23 @@ private fun TransmitScreen() {
 
 @Composable
 private fun AccountScreen(url: String, onUrl: (String) -> Unit, username: String, onUsername: (String) -> Unit, password: String, onPassword: (String) -> Unit, onValidate: () -> Unit) {
-    Column(verticalArrangement = Arrangement.spacedBy(13.dp)) {
+    val context = LocalContext.current
+    Column(verticalArrangement = Arrangement.spacedBy(15.dp)) {
         Text("Account", fontSize = 28.sp, fontWeight = FontWeight.Bold)
-        Text("Connect to your SimTX account", color = Muted)
-        OutlinedTextField(value = url, onValueChange = onUrl, label = { Text("API base URL") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = username, onValueChange = onUsername, label = { Text("Username") }, singleLine = true, modifier = Modifier.fillMaxWidth())
-        OutlinedTextField(value = password, onValueChange = onPassword, label = { Text("Password") }, singleLine = true, visualTransformation = PasswordVisualTransformation(), modifier = Modifier.fillMaxWidth())
-        Button(onClick = onValidate, modifier = Modifier.fillMaxWidth()) { Icon(Icons.Default.VerifiedUser, null); Spacer(Modifier.width(8.dp)); Text("Validate details") }
-        Text("Local validation only. This build does not send or persist credentials; sign-in awaits verified API endpoint mapping.", color = Muted, fontSize = 12.sp)
-        Surface(color = Panel, shape = RoundedCornerShape(16.dp)) {
-            Column(Modifier.padding(16.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                Text("Security", fontWeight = FontWeight.Bold)
-                InfoRow("Transport", "HTTPS only")
-                InfoRow("Credential storage", "Not persisted")
-                InfoRow("Session token", "Not configured")
+        Text("Sign in with your SimTX account", color = Muted)
+        Surface(color = Panel, shape = RoundedCornerShape(20.dp)) {
+            Column(Modifier.fillMaxWidth().padding(20.dp), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
+                Icon(Icons.Default.AccountCircle, null, tint = Mint, modifier = Modifier.size(54.dp))
+                Text("Official SimTX sign-in", fontSize = 20.sp, fontWeight = FontWeight.Bold)
+                Text("Complete account sign-in on the SimTX website.", color = Muted)
+                Button(onClick = { context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://simtx.net/"))) }, modifier = Modifier.fillMaxWidth()) {
+                    Icon(Icons.Default.OpenInBrowser, null)
+                    Spacer(Modifier.width(8.dp))
+                    Text("Continue to SimTX")
+                }
             }
         }
+        Text("Browser sign-in is available. Returning an authenticated session to this app requires a supported SimTX sign-in callback.", color = Muted, fontSize = 12.sp)
     }
 }
 
